@@ -16,6 +16,8 @@
 #import "BRTextField.h"
 
 #import "YBPopupMenu.h"
+#import "SGPopSelectView.h"
+#import "BRInfoCell.h"
 
 #define TITLES @[@"扫一扫",@"扫一扫",@"扫一扫",]
 #define ICONS  @[@"qr_scan"]
@@ -37,6 +39,12 @@
 
 @property (nonatomic, assign) CGSize sizeOn;
 
+@property (nonatomic, strong) NSArray *selections;
+@property (nonatomic, strong) SGPopSelectView *popView;
+
+@property (nonatomic, strong) BRInfoCell *firstResponderTextParent;
+
+
 @end
 
 @implementation TestViewController
@@ -54,11 +62,24 @@
     self.isKeyBoardOn = false;
     self.sizeOn = CGSizeMake(0, 0);
     self.currTextFieldPos = 0;
-  
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myKeyBoardOnAction:) name:UIKeyboardWillShowNotification object:nil];
+    self.selections = [NSArray arrayWithObjects:@"one",@"two",@"two",@"Three",@"Fouth", nil];
+    
+    self.popView = [[SGPopSelectView alloc] init];
+    self.popView.selections = self.selections;
+    __weak typeof(self) weakSelf = self;
+    self.popView.selectedHandle = ^(NSInteger selectedIndex){
+        NSLog(@"selected index %ld, content is %@", selectedIndex, weakSelf.selections[selectedIndex]);
+        [weakSelf.popView hide:YES];
+    };
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myKeyBoardOnAction:) name:UIKeyboardDidShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(myKeyBoardDimissAction:) name:UIKeyboardDidHideNotification object:nil];
+//
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShowAction:) name:UIKeyboardWillShowNotification object:nil];
+//
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillDimissAction:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -66,6 +87,10 @@
                                                     name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardDidHideNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self
+//                                                    name:UIKeyboardWillShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self
+//                                                    name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(void) myKeyBoardOnAction:(NSNotification *) notification {
@@ -86,26 +111,26 @@
     if (!_popUpMenu.hidden) {
         [_popUpMenu dismiss];
     }
-    _popUpMenu = [YBPopupMenu showRelyOnView:self.currTextField
-                                      titles:TITLES
-                                       icons:nil
-                                   menuWidth:self.view.bounds.size.width / 2
-                               otherSettings:^(YBPopupMenu *popupMenu) {
-                                   popupMenu.delegate = weakSelf;
-                                   if (_isKeyBoardOn) {
-                                       double viewY = (weakSelf.currTextFieldPos + 1) * weakSelf.currTextField.bounds.size.height;
-                                       double leftContentHeight = weakSelf.view.bounds.size.height - viewY - weakSelf.sizeOn.height;
-                                       double itemsHeight = ([TITLES count] + 1)* popupMenu.itemHeight;
-                                       double maxHeight = popupMenu.maxVisibleCount * popupMenu.itemHeight;
-                                       if (leftContentHeight > itemsHeight) {
-                                           popupMenu.priorityDirection = YBPopupMenuPriorityDirectionTop;
-                                       } else {
-                                           popupMenu.priorityDirection = YBPopupMenuPriorityDirectionBottom;
-                                       }
-                                   } else {
-                                       popupMenu.priorityDirection = YBPopupMenuPriorityDirectionBottom;
-                                   }
-                               }];
+//    _popUpMenu = [YBPopupMenu showRelyOnView:self.currTextField
+//                                      titles:TITLES
+//                                       icons:nil
+//                                   menuWidth:self.view.bounds.size.width / 2
+//                               otherSettings:^(YBPopupMenu *popupMenu) {
+//                                   popupMenu.delegate = weakSelf;
+//                                   if (_isKeyBoardOn) {
+//                                       double viewY = (weakSelf.currTextFieldPos + 1) * weakSelf.currTextField.bounds.size.height;
+//                                       double leftContentHeight = weakSelf.view.bounds.size.height - viewY - weakSelf.sizeOn.height;
+//                                       double itemsHeight = ([TITLES count] + 1)* popupMenu.itemHeight;
+//                                       double maxHeight = popupMenu.maxVisibleCount * popupMenu.itemHeight;
+//                                       if (leftContentHeight > itemsHeight) {
+//                                           popupMenu.priorityDirection = YBPopupMenuPriorityDirectionTop;
+//                                       } else {
+//                                           popupMenu.priorityDirection = YBPopupMenuPriorityDirectionBottom;
+//                                       }
+//                                   } else {
+//                                       popupMenu.priorityDirection = YBPopupMenuPriorityDirectionBottom;
+//                                   }
+//                               }];
     
 }
 
@@ -286,7 +311,30 @@
     
     }];
     
-    self.itemArray = @[item8,item0,item1,item2,item3,item4,item5,item6,item7,];
+    
+    SZTextFieldCellItem *item9 = [SZTextFieldCellItem rowItemWithTitle:@"测试"
+            placeholder:@"请输入数据" isNeedStar:YES
+            startEditingBlock:^(NSString *emptyStr) {
+                NSLog(@"开始编辑");
+                if (!_popUpMenu.isHidden) {
+                    [_popUpMenu dismiss];
+                }
+                weakSelf.currTextFieldPos = 5;
+                weakSelf.currTextField = weakSelf.curTextField[5];
+                
+                CGPoint p = [(weakSelf.currTextField.superview).superview center];
+                [self.popView showFromView:self.view atPoint:p animated:YES];
+
+            }
+            endEditingBlock:^(NSString *result) {
+                NSLog(@"结束编辑");
+                weakSelf.curTextField[0].text = result;
+                weakSelf.infoModel.nameStr = result;
+                
+                [self.popView hide:YES];
+            }];
+    
+    self.itemArray = @[item8,item0,item1,item2,item3,item9,item4,item5,item6,item7];
 }
 #warning - 上面infoModel的赋值不是必需的，可以采用curTextField数组赋值的方式。
 
@@ -351,6 +399,12 @@
 ////    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
 ////    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 ////}
+
+# pragma - TextFiledDelegate方法
+-(BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+    self.firstResponderTextParent = (BRInfoCell *)(textField.superview).superview;
+    return YES;
+}
 
 
 //设置return键位退出

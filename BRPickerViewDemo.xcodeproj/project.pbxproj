@@ -10,6 +10,9 @@
 		0E0284DE22A8A260005958C6 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0284D922A8A25F005958C6 /* YBRectConst.m */; };
 		0E0284DF22A8A260005958C6 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0284DA22A8A25F005958C6 /* YBPopupMenuPath.m */; };
 		0E0284E022A8A260005958C6 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0284DC22A8A25F005958C6 /* YBPopupMenu.m */; };
+		0E0284E622A914AA005958C6 /* Oval 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E0284E322A914AA005958C6 /* Oval 3.png */; };
+		0E0284E722A914AA005958C6 /* SGPopSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0284E422A914AA005958C6 /* SGPopSelectView.m */; };
+		0E0284E822A914AA005958C6 /* Oval 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E0284E522A914AA005958C6 /* Oval 4.png */; };
 		B512222120F8A280006C7DEA /* NSObject+SZKVO.m in Sources */ = {isa = PBXBuildFile; fileRef = B512222020F8A280006C7DEA /* NSObject+SZKVO.m */; };
 		B537CFAA20F6EB9F00971457 /* SZTextFieldSelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B537CFA820F6EB9F00971457 /* SZTextFieldSelItem.m */; };
 		B53F2E0720F5DEEC00A50C86 /* BRTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B53F2E0520F5DEEB00A50C86 /* BRTextField.m */; };
@@ -44,6 +47,10 @@
 		0E0284DB22A8A25F005958C6 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
 		0E0284DC22A8A25F005958C6 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
 		0E0284DD22A8A25F005958C6 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
+		0E0284E222A914AA005958C6 /* SGPopSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPopSelectView.h; sourceTree = "<group>"; };
+		0E0284E322A914AA005958C6 /* Oval 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 3.png"; sourceTree = "<group>"; };
+		0E0284E422A914AA005958C6 /* SGPopSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPopSelectView.m; sourceTree = "<group>"; };
+		0E0284E522A914AA005958C6 /* Oval 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Oval 4.png"; sourceTree = "<group>"; };
 		B512221F20F8A280006C7DEA /* NSObject+SZKVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+SZKVO.h"; sourceTree = "<group>"; };
 		B512222020F8A280006C7DEA /* NSObject+SZKVO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SZKVO.m"; sourceTree = "<group>"; };
 		B537CFA020F6E4ED00971457 /* BRPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerView.h; sourceTree = "<group>"; };
@@ -113,6 +120,17 @@
 			path = YBPopupMenu;
 			sourceTree = SOURCE_ROOT;
 		};
+		0E0284E122A913F4005958C6 /* SGPopSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				0E0284E322A914AA005958C6 /* Oval 3.png */,
+				0E0284E522A914AA005958C6 /* Oval 4.png */,
+				0E0284E222A914AA005958C6 /* SGPopSelectView.h */,
+				0E0284E422A914AA005958C6 /* SGPopSelectView.m */,
+			);
+			path = SGPopSelectView;
+			sourceTree = "<group>";
+		};
 		B512222220F8A5B8006C7DEA /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +194,7 @@
 		C5ACE4D81F3D58BD0069978B /* BRPickerViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				0E0284E122A913F4005958C6 /* SGPopSelectView */,
 				0E0284D722A8A25F005958C6 /* YBPopupMenu */,
 				C5ACE4F01F3D5A8B0069978B /* BRPickerView */,
 				C5ACE50F1F3D80BA0069978B /* Classes */,
@@ -329,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5655BA420848B1900331751 /* icon_next@2x.png in Resources */,
+				0E0284E622A914AA005958C6 /* Oval 3.png in Resources */,
 				C57E775C204699B2004A2425 /* BRPickerView.bundle in Resources */,
 				C5EB52DA2019B75C00FECAD5 /* BRCity.json in Resources */,
 				C5ACE4E91F3D58BD0069978B /* LaunchScreen.storyboard in Resources */,
@@ -338,6 +358,7 @@
 				C5655BA520848B1900331751 /* icon_next@3x.png in Resources */,
 				C5EB52D42018D38100FECAD5 /* testData1.plist in Resources */,
 				C5EB52D62018D39900FECAD5 /* testData2.plist in Resources */,
+				0E0284E822A914AA005958C6 /* Oval 4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +374,7 @@
 				C5ACE4DE1F3D58BD0069978B /* AppDelegate.m in Sources */,
 				B512222120F8A280006C7DEA /* NSObject+SZKVO.m in Sources */,
 				C5ACE4DB1F3D58BD0069978B /* main.m in Sources */,
+				0E0284E722A914AA005958C6 /* SGPopSelectView.m in Sources */,
 				C5ACE50B1F3D7D890069978B /* BRDatePickerView.m in Sources */,
 				0E0284DF22A8A260005958C6 /* YBPopupMenuPath.m in Sources */,
 				C5655BA82084B3B000331751 /* BRInfoModel.m in Sources */,
